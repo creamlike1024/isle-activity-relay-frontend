@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="icon" href="https://oss.isle.moe/files/08356d3c-6cc6-4f16-9163-deb4ec7d7117.png">
-    <title>岛站中继</title>
+    <title>萌岛中继</title>
     <style>
         /* 颜色变量 */
         :root {
-            --color-primary: #ffa500;
+            --color-primary: #f28500;
         }
         body {
             font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
@@ -25,6 +25,15 @@
                 width: 67%;
                 max-width: 1024px;
             }
+        }
+        /* 设置 h1 的行距 */
+        h1{
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        h1:before {
+            content: '> ';
+            color: var(--color-primary);
         }
         h2 {
             margin-top: 1.5em;
@@ -43,9 +52,11 @@
             color: var(--color-primary);
             text-decoration: none;
         }
-        /* 当鼠标悬停在链接上时，为链接添加下划线 */
+        /* 当鼠标悬停在链接上时，为链接添加背景色 */
         a:hover {
-            text-decoration: underline;
+            color: white;
+            background-color: var(--color-primary);
+            transition: .2s all ease-in-out;
         }
         /* 设置 list 的行距 */
         li{
