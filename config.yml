@@ -8,4 +8,3 @@ output:
 template:
   markdown: template.md
   html_head: template_head.html
-update_interval: 5 # Minutes
