@@ -1,0 +1,11 @@
+redis:
+  host: localhost
+  port: 6379
+  password:
+output:
+  dir: output
+  file: index.html
+template:
+  markdown: template.md
+  html_head: template_head.html
+update_interval: 5 # Minutes

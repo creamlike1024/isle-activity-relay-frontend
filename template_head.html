@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="icon" href="https://oss.isle.moe/files/08356d3c-6cc6-4f16-9163-deb4ec7d7117.png">
+    <title>岛站中继</title>
+    <style>
+        /* 颜色变量 */
+        :root {
+            --color-primary: #ffa500;
+        }
+        body {
+            font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+        }
+        /* 整体居中 */
+        .main {
+            margin: auto;
+            padding: 0 1rem;
+            box-sizing: border-box;
+            width: 100%;
+        }
+        @media (min-width: 768px) {
+            .main {
+                width: 67%;
+                max-width: 1024px;
+            }
+        }
+        h2 {
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+        /* 为 h2 标签添加 # 号 */
+        h2:before {
+            content: '# ';
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+        /* 链接样式 */
+        a {
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+        /* 当鼠标悬停在链接上时，为链接添加下划线 */
+        a:hover {
+            text-decoration: underline;
+        }
+        /* 设置 list 的行距 */
+        li{
+            margin-top: 0.5em;
+        }
+    </style>
+</head>
