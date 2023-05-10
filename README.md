@@ -1,6 +1,6 @@
 # isle-activity-relay-frontend
 
-relay.isle.moe
+[relay.isle.moe](https://relay.isle.moe)
 
 原理是从 [activity-relay](https://github.com/yukimochi/Activity-Relay) 的 redis 获取订阅信息，然后通过 markdown 生成页面
 
