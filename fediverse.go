@@ -101,14 +101,11 @@ func GetNodeName(domain string) (string, error) {
 }
 
 func GetSoftwareName(name string) string {
-	if name == "mastodon" {
-		return "Mastodon"
-	}
-	if name == "misskey" {
-		return "Misskey"
-	}
-	if name == "pleroma" {
-		return "Pleroma"
-	}
+	// 将 name 转换为 byte 数组
+	nameBytes := []byte(name)
+	// 将 nameBytes 中的首字母转换为大写
+	nameBytes[0] -= 32
+	// 将 nameBytes 转换为 string
+	name = string(nameBytes)
 	return name
 }
