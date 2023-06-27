@@ -36,7 +36,8 @@ func FillHtml(html []byte) []byte {
 	htmlStr += "\n<footer>\n"
 	htmlStr += fmt.Sprintf("\n<p>感谢大家的支持</p>\n")
 	loc, _ := time.LoadLocation(config.Timezone)
-	htmlStr += fmt.Sprintf("\n<p>本页最后更新于 %s</p>", time.Now().In(loc).Format(config.TimeFormat))
+	htmlStr += fmt.Sprintf("\n<p>本页最后更新于 %s</p>\n", time.Now().In(loc).Format(config.TimeFormat))
+	htmlStr += "\n</footer>\n"
 	// 添加 html 尾
 	htmlStr += "\n</section>\n</body>\n</html>"
 	return []byte(htmlStr)
