@@ -16,6 +16,8 @@ type Config struct {
 	OutputFilename       string
 	TemplateFilename     string
 	TemplateHeadFilename string
+	TimeFormat           string
+	Timezone             string
 }
 
 var config Config
@@ -38,6 +40,8 @@ func main() {
 		OutputFilename:       viper.GetString("output.file"),
 		TemplateFilename:     viper.GetString("template.markdown"),
 		TemplateHeadFilename: viper.GetString("template.html_head"),
+		TimeFormat:           viper.GetString("time.format"),
+		Timezone:             viper.GetString("time.timezone"),
 	}
 	// 建立 redis 连接
 	rdb := redis.NewClient(&redis.Options{

@@ -7,6 +7,7 @@ import (
 	"github.com/gomarkdown/markdown/parser"
 	"os"
 	"sync"
+	"time"
 )
 
 func MdToHTML(md []byte) []byte {
@@ -31,8 +32,13 @@ func FillHtml(html []byte) []byte {
 		panic(err)
 	}
 	htmlStr = string(htmlHead) + "\n<body>\n" + "<section class=\"main\">\n" + htmlStr
+	// 添加页尾信息
+	htmlStr += "\n<footer>\n"
+	htmlStr += fmt.Sprintf("\n<p>感谢大家的支持</p>\n")
+	loc, _ := time.LoadLocation(config.Timezone)
+	htmlStr += fmt.Sprintf("\n<p>本页最后更新于 %s</p>", time.Now().In(loc).Format(config.TimeFormat))
 	// 添加 html 尾
-	htmlStr += "\n</section>\n</body>"
+	htmlStr += "\n</section>\n</body>\n</html>"
 	return []byte(htmlStr)
 }
 

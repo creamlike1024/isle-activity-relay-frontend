@@ -8,3 +8,6 @@ output:
 template:
   markdown: template.md
   html_head: template_head.html
+time:
+  format: 2006-01-02 15:04:05 MST
+  timezone: UTC
