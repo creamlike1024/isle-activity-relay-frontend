@@ -11,8 +11,10 @@
         document.getElementById('server-logs').scrollTop = document.getElementById('server-logs').scrollHeight
     }
 </script>
-<button onclick="document.getElementById('server-logs').innerHTML = ''">清除收信日志</button>
+<button onclick="document.getElementById('server-logs').innerHTML = ''">清空收信日志</button>
 <button onclick="copyLogs('server-logs')">复制日志</button>
+<button onclick="ws1.close(); alert('收信日志已暂停，如需重连请刷新页面')">暂停</button>
+<button onclick="location.reload()">刷新页面</button>
 
 <h2 id="送信日志">送信日志</h2>
 <pre id="worker-logs" style="overflow-y: scroll; font-family: monospace; height: 30em"></pre>
@@ -27,8 +29,10 @@
         document.getElementById('worker-logs').scrollTop = document.getElementById('worker-logs').scrollHeight
     }
 </script>
-<button onclick="document.getElementById('worker-logs').innerHTML = ''">清除送信日志</button>
+<button onclick="document.getElementById('worker-logs').innerHTML = ''">清空送信日志</button>
 <button onclick="copyLogs('worker-logs')">复制日志</button>
+<button onclick="ws2.close(); alert('送信日志已暂停，如需重连请刷新页面')">暂停</button>
+<button onclick="location.reload()">刷新页面</button>
 
 <!-- 复制按钮 -->
 <script>
