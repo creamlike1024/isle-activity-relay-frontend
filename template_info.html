@@ -1,0 +1,35 @@
+<h1 id="relay-isle-moe">relay.isle.moe</h1>
+
+<h2 id="订阅">订阅</h2>
+
+<p>欢迎～</p>
+
+<ul>
+    <li>对于 Mastodon 和 Misskey 等兼容中继协议的软件可以使用这个链接订阅： <span class="sel" title="点击复制">https://relay.isle.moe/inbox</span></li>
+    <li>对于 Pleroma，请根据<a href="https://docs-develop.pleroma.social/backend/administration/CLI_tasks/relay/" target="_blank">官方文档</a>使用命令行订阅该地址： <span class="sel" title="点击复制">https://relay.isle.moe/actor</span></li>
+    <li>对于其他软件，请参考相应软件的文档订阅中继</li>
+</ul>
+
+<p>如果订阅异常可以试试移除中继再重新订阅！</p>
+
+<p>所使用的后端为 <a href="https://github.com/yukimochi/Activity-Relay" target="_blank">yukimochi/Activity-Relay</a></p>
+
+<p>页面生成器：<a href="https://github.com/creamlike1024/isle-activity-relay-frontend" target="_blank">isle-activity-relay-frontend</a></p>
+
+<p>有问题可以联系 <a href="https://m.isle.moe/@claire" target="_blank">@Claire</a></p>
+
+<h2 id="订阅的实例列表">订阅的实例列表</h2>
+
+<p><em>每 5 分钟更新一次</em></p>
+
+<!-- sel 点击复制 -->
+<script>
+    let sel = document.getElementsByClassName('sel')
+    for (let i = 0; i < sel.length; i++) {
+        sel[i].onclick = () => {
+            navigator.clipboard.writeText(sel[i].innerText).then(() => {
+                alert('复制成功！')
+            })
+        }
+    }
+</script>

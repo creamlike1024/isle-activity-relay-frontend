@@ -14,8 +14,9 @@ type Config struct {
 	RedisPassword        string
 	OutputDir            string
 	OutputFilename       string
-	TemplateFilename     string
+	TemplateInfoFilename string
 	TemplateHeadFilename string
+	templateLogFilename  string
 	TimeFormat           string
 	Timezone             string
 }
@@ -38,7 +39,8 @@ func main() {
 		RedisPassword:        viper.GetString("redis.password"),
 		OutputDir:            viper.GetString("output.dir"),
 		OutputFilename:       viper.GetString("output.file"),
-		TemplateFilename:     viper.GetString("template.markdown"),
+		TemplateInfoFilename: viper.GetString("template.info"),
+		templateLogFilename:  viper.GetString("template.log"),
 		TemplateHeadFilename: viper.GetString("template.html_head"),
 		TimeFormat:           viper.GetString("time.format"),
 		Timezone:             viper.GetString("time.timezone"),
@@ -52,15 +54,8 @@ func main() {
 	ctx := context.Background()
 	// 获取订阅者和关注者列表
 	subscribeAndFollowers := GetSubcribesAndFollowers(rdb, ctx)
-	// 读取模板文件
-	templateFile, err := os.ReadFile(config.TemplateFilename)
-	if err != nil {
-		fmt.Printf("Failed to read template file: %s\n", config.TemplateFilename)
-		panic(err)
-	}
 	// 生成 HTML 文件
-	bodyHtml := MdToHTML(FillMarkdownTemplate(templateFile, subscribeAndFollowers))
-	htmlBytes := FillHtml(bodyHtml)
+	htmlBytes := GenHtml(&subscribeAndFollowers)
 	// 输出HTML文件
 	// 检查输出目录是否存在，如果不存在则创建
 	if _, err := os.Stat(config.OutputDir); os.IsNotExist(err) {

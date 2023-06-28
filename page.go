@@ -23,27 +23,41 @@ func MdToHTML(md []byte) []byte {
 	return markdown.Render(doc, renderer)
 }
 
-func FillHtml(html []byte) []byte {
-	htmlStr := string(html)
+func GenHtml(subList *[]string) []byte {
+	var htmlStr string
 	// 添加 html 头
 	htmlHead, err := os.ReadFile(config.TemplateHeadFilename)
 	if err != nil {
 		fmt.Printf("Failed to read template file: %s\n", config.TemplateHeadFilename)
 		panic(err)
 	}
-	htmlStr = string(htmlHead) + "\n<body>\n" + "<section class=\"main\">\n" + htmlStr
-	// 添加页尾信息
-	htmlStr += "\n<footer>\n"
+	htmlStr = string(htmlHead) + "\n<body>\n" + "<section class=\"main\">\n"
+	// 添加中继信息
+	infoBody, err := os.ReadFile(config.TemplateInfoFilename)
+	if err != nil {
+		fmt.Printf("Failed to read template file: %s\n", config.TemplateInfoFilename)
+		panic(err)
+	}
+	htmlStr += "\n" + string(infoBody)
+	// 添加订阅列表
+	subListHtml := MdToHTML(GenSubMdList(*subList))
+	htmlStr += "\n" + string(subListHtml)
 	htmlStr += fmt.Sprintf("\n<p>感谢大家的支持</p>\n")
 	loc, _ := time.LoadLocation(config.Timezone)
-	htmlStr += fmt.Sprintf("\n<p>本页最后更新于 %s</p>\n", time.Now().In(loc).Format(config.TimeFormat))
-	htmlStr += "\n</footer>\n"
+	htmlStr += fmt.Sprintf("\n<p>列表最后更新于 %s</p>\n", time.Now().In(loc).Format(config.TimeFormat))
+	// 添加实时日志
+	logBody, err := os.ReadFile(config.templateLogFilename)
+	if err != nil {
+		fmt.Printf("Failed to read template file: %s\n", config.templateLogFilename)
+		panic(err)
+	}
+	htmlStr += "\n" + string(logBody)
 	// 添加 html 尾
 	htmlStr += "\n</section>\n</body>\n</html>"
 	return []byte(htmlStr)
 }
 
-func FillMarkdownTemplate(md []byte, domainList []string) []byte {
+func GenSubMdList(domainList []string) []byte {
 	var list string
 	count := 0
 	var wg sync.WaitGroup
@@ -66,6 +80,7 @@ func FillMarkdownTemplate(md []byte, domainList []string) []byte {
 		}(d)
 	}
 	wg.Wait()
+	var md []byte
 	md = append(md, []byte(fmt.Sprintf("\n共 **%d** 个站点\n", count))...)
 	return append(md, []byte(list)...)
 }

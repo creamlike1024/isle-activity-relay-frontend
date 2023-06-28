@@ -6,8 +6,9 @@ output:
   dir: output
   file: index.html
 template:
-  markdown: template.md
+  info: template_info.html
   html_head: template_head.html
+  log: template_log.html
 time:
   format: 2006-01-02 15:04:05 MST
   timezone: UTC

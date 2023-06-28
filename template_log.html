@@ -1,0 +1,41 @@
+<h2 id="收信日志">收信日志</h2>
+<pre id="server-logs" style="overflow-y: scroll; font-family: monospace; height: 20em"></pre>
+<script>
+    let ws1 = new WebSocket('wss://relay.isle.moe/log-ws/server.log?tail=1')
+    ws1.onmessage = (event) => {
+        if (event.data === 'ping') {
+            ws1.send('pong')
+            return
+        }
+        document.getElementById('server-logs').innerHTML += event.data
+        document.getElementById('server-logs').scrollTop = document.getElementById('server-logs').scrollHeight
+    }
+</script>
+<button onclick="document.getElementById('server-logs').innerHTML = ''">清除收信日志</button>
+<button onclick="copyLogs('server-logs')">复制日志</button>
+
+<h2 id="送信日志">送信日志</h2>
+<pre id="worker-logs" style="overflow-y: scroll; font-family: monospace; height: 30em"></pre>
+<script>
+    let ws2 = new WebSocket('wss://relay.isle.moe/log-ws/worker.log?tail=1')
+    ws2.onmessage = (event) => {
+        if (event.data === 'ping') {
+            ws2.send('pong')
+            return
+        }
+        document.getElementById('worker-logs').innerHTML += event.data
+        document.getElementById('worker-logs').scrollTop = document.getElementById('worker-logs').scrollHeight
+    }
+</script>
+<button onclick="document.getElementById('worker-logs').innerHTML = ''">清除送信日志</button>
+<button onclick="copyLogs('worker-logs')">复制日志</button>
+
+<!-- 复制按钮 -->
+<script>
+    function copyLogs(elementId) {
+        let logs = document.getElementById(elementId).innerText
+        navigator.clipboard.writeText(logs).then(() => {
+            alert('复制成功！')
+        })
+    }
+</script>
