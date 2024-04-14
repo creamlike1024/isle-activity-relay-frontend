@@ -6,6 +6,9 @@ import (
 	"github.com/gomarkdown/markdown/html"
 	"github.com/gomarkdown/markdown/parser"
 	"os"
+	"os/exec"
+	"strconv"
+	"strings"
 	"sync"
 	"time"
 )
@@ -43,8 +46,13 @@ func GenHtml(subList *[]string) []byte {
 	subListHtml := MdToHTML(GenSubMdList(*subList))
 	htmlStr += "\n" + string(subListHtml)
 	htmlStr += fmt.Sprintf("\n<p>感谢大家的支持</p>\n")
+	count, err := getAcceptedNotesCount(config.logPath)
+	if err != nil {
+		panic(err)
+	}
+	htmlStr += fmt.Sprintf("\n<p>累计转发 %d 条帖子</p>\n", count+config.offset)
 	loc, _ := time.LoadLocation(config.Timezone)
-	htmlStr += fmt.Sprintf("\n<p>列表最后更新于 %s</p>\n", time.Now().In(loc).Format(config.TimeFormat))
+	htmlStr += fmt.Sprintf("\n<p>数据最后更新于 %s</p>\n", time.Now().In(loc).Format(config.TimeFormat))
 	// 添加实时日志
 	logBody, err := os.ReadFile(config.templateLogFilename)
 	if err != nil {
@@ -83,4 +91,16 @@ func GenSubMdList(domainList []string) []byte {
 	var md []byte
 	md = append(md, []byte(fmt.Sprintf("\n共 **%d** 个站点\n", count))...)
 	return append(md, []byte(list)...)
+}
+
+func getAcceptedNotesCount(path string) (int, error) {
+	out, err := exec.Command("grep", "-c", "Accepted", path).Output()
+	if err != nil {
+		return 0, err
+	}
+	count, err := strconv.Atoi(strings.TrimSpace(string(out)))
+	if err != nil {
+		return 0, err
+	}
+	return count, nil
 }

@@ -103,6 +103,9 @@ func GetNodeName(domain string) (string, error) {
 func GetSoftwareName(name string) string {
 	// 将 name 转换为 byte 数组
 	nameBytes := []byte(name)
+	if len(nameBytes) == 0 {
+		return ""
+	}
 	// 将 nameBytes 中的首字母转换为大写
 	nameBytes[0] -= 32
 	// 将 nameBytes 转换为 string

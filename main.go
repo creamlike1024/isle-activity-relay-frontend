@@ -19,6 +19,8 @@ type Config struct {
 	templateLogFilename  string
 	TimeFormat           string
 	Timezone             string
+	logPath              string
+	offset               int
 }
 
 var config Config
@@ -44,6 +46,8 @@ func main() {
 		TemplateHeadFilename: viper.GetString("template.html_head"),
 		TimeFormat:           viper.GetString("time.format"),
 		Timezone:             viper.GetString("time.timezone"),
+		logPath:              viper.GetString("relay_log.path"),
+		offset:               viper.GetInt("relay_log.offset"),
 	}
 	// 建立 redis 连接
 	rdb := redis.NewClient(&redis.Options{
@@ -64,10 +68,6 @@ func main() {
 			fmt.Printf("Failed to create output dir: %s\n", config.OutputDir)
 			panic(err)
 		}
-	}
-	if err != nil {
-		fmt.Printf("Failed to copy css file: %s\n", config.OutputDir)
-		panic(err)
 	}
 	// 输出 HTML 文件
 	err = os.WriteFile(config.OutputDir+"/"+config.OutputFilename, htmlBytes, 0644)

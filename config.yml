@@ -12,3 +12,6 @@ template:
 time:
   format: 2006-01-02 15:04:05 MST
   timezone: UTC
+relay_log:
+  path: /home/claire/activity-relay/logs/server.log
+  offset: 0
